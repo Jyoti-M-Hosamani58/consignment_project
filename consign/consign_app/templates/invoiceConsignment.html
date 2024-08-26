@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Consignment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <style>
+        @media print {
+            @page {
+                size: 8.5in 11.69in; /* or any other size you need */
+                margin: 0;
+            }
+            body {
+                font-family: Courier, monospace; /* or any other monospace font */
+                font-size: 12px;
+            }
+            table {
+                border-collapse: collapse;
+            }
+            td, th {
+                border: 1px solid black;
+                padding: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:window.print()" class="btn btn-danger btn-print">Print</a>
+    <div class="container">
+        <h1 class="mt-5">Consignment Details</h1>
+        <p>Date: {{ consignment.date }}</p>
+        <table class="table table-bordered mt-3">
+            <tbody>
+                <tr>
+                       <td colspan="2">
+        <div style="display: flex; align-items: center;">
+            <img src="../../media/{{branchdetails.image}}" style="width:100px;height:100px; margin-right: 10px;"/>
+            <div>
+                GST NO.: {{branchdetails.gst}}<br>
+                {{branchdetails.companyname}}</br>
+                {{branchdetails.address}}</br>
+                {{branchdetails.phonenumber}}</br>
+                Email: <a href="{{branchdetails.email}}">{{branchdetails.email}}</a>
+            </div>
+        </div>
+    </td>
+
+                    <td>Consignment ID: {{ consignment.Consignment_id}}<br>
+                        Docket No.: {{ consignment.track_id }}</td>
+                    <td>From: <strong>{{ consignment.route_from }}</strong></td>
+                    <td>To:  <strong>{{ consignment.route_to }}</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Sender</strong></td>
+                    <td><strong>Receiver</strong></td>
+                    <td colspan="3"><strong>Products Details</strong></td>
+                </tr>
+                <tr>
+                    <td rowspan="3">Name: {{ consignment.sender_name }}<br>
+                        Mobile No: {{ consignment.sender_mobile}}<br>
+                        Address: {{ consignment.sender_address }}<br>
+                    GST No: {{ consignment.sender_GST}}<br>
+                    Company Name:{{ consignment.sender_company}}</td>
+
+                    <td rowspan="3">Name: {{ consignment.receiver_name }}<br>
+                    Mobile: {{ consignment.receiver_mobile }}<br>
+                    Address: {{ consignment.receiver_address }}<br>
+                    Company: {{ consignment.receiver_company }}<br>
+                    Email: {{ consignment.receiver_email }}</td>
+
+                    <td>{{ consignment.desc_product }}</td>
+                    <td>Pieces: {{ consignment.pieces }}</td>
+                    <td>GST: {{ consignment.prod_gst }}</td>
+                    </tr>
+                <tr>
+                    <td>Invoice: {{ consignment.prod_invoice }}</td>
+                    <td>Volume: {{ consignment.dimension }}</td>
+                    <td>Weight: {{ consignment.weight }}</td>
+                </tr>
+
+                <tr>
+                    <td>Price: {{ consignment.prod_price }}</td>
+                    <td>Packing: {{ consignment.packing }}</td>
+                    <td colspan="2">Actual Weight: {{ consignment.actual_weight }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5"><strong>Consignment Details</strong></td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Quantity: <br>
+                        Charged Weight: <br>
+                        Freight: <br>
+                        Hamali: <br>
+                        Door Charge: <br>
+                        ST Charge: <br><hr>
+                        Total Cost: </td>
+
+                    <td rowspan="2">{{ consignment.qty }}<br>
+                        {{ consignment.weight}}<br>
+                        {{ consignment.freight }}<br>
+                        {{ consignment.door_charge }}<br>
+                        {{ consignment.st_charge }}<br>
+                        {{ consignment.hamali }}<br><hr>
+                        {{ consignment.total_cost }}<br>
+                    </td>
+                    <td>Authorized Signature with Seal:</td>
+                    <td colspan="2">Conditions of Carriage:</td>
+                </tr>
+
+                <tr>
+                    <td>Payment Status:<strong> {{ consignment.pay_status }}</strong></td>
+                    <td colspan="4">Signature of Receiver:</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
